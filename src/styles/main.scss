@@ -1,0 +1,38 @@
+@import './_typeColors';
+
+$primary-dark: #1f1b2e;
+$background-dark: #100f17;
+
+html {
+    background-color: $background-dark;
+    color: white;
+}
+
+.card {
+    min-height: 75vh;
+    max-height: 75vh;
+}
+
+.typed-border {
+    position: relative;
+    border-image-slice: 1;
+    background-color: $primary-dark;
+
+    &.team {
+        border-radius: 10px;
+    }
+}
+
+.poke-team {
+    gap: 1rem;
+
+    &-member-container {
+        padding: 0.5rem;
+        text-align: center;
+
+        .-item {
+        }
+    }
+}
+
+@include typeColorCombinations();

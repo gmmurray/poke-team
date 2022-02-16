@@ -1,0 +1,50 @@
+$typeCodes: (
+    'normal': #a8a878,
+    'fire': #f08030,
+    'fighting': #c03028,
+    'water': #6890f0,
+    'flying': #a890f0,
+    'grass': #78c850,
+    'poison': #a040a0,
+    'electric': #f8d030,
+    'ground': #e0c068,
+    'psychic': #f85888,
+    'rock': #b8a038,
+    'ice': #98d8d8,
+    'bug': #a8b820,
+    'dragon': #7038f8,
+    'ghost': #705898,
+    'dark': #705848,
+    'steel': #b8b8d0,
+);
+
+@mixin typeColorCombinations() {
+    @each $type, $code in $typeCodes {
+        @each $innerType, $innerCode in $typeCodes {
+            .--#{$type}-#{$innerType}-type {
+                &::after {
+                    background: linear-gradient(to left, $code, $innerCode);
+                    position: absolute;
+                    content: '';
+                    z-index: -1;
+                }
+
+                &.team::after {
+                    border-radius: 10px;
+                    top: -4px;
+                    bottom: -4px;
+                    left: -4px;
+                    right: -4px;
+                }
+
+                &.card::after {
+                    border-radius: 32px;
+                    top: -20px;
+                    bottom: -20px;
+                    left: -20px;
+                    right: -20px;
+                }
+            }
+        }
+    }
+}
