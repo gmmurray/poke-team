@@ -29,7 +29,7 @@ $typeCodes: (
                     z-index: -1;
                 }
 
-                &.team::after {
+                &.--team::after {
                     border-radius: 10px;
                     top: -4px;
                     bottom: -4px;
@@ -37,7 +37,7 @@ $typeCodes: (
                     right: -4px;
                 }
 
-                &.card::after {
+                &.--card::after {
                     border-radius: 32px;
                     top: -20px;
                     bottom: -20px;

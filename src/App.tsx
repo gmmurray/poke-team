@@ -8,12 +8,14 @@ import {
 // @ts-ignore
 import { Container } from 'react-grid';
 import PokeTeam from './components/pokeTeam/PokeTeam';
-import { Pokemon } from 'pokenode-ts';
+// @ts-ignore
+import { Pokemon, PokemonType, PokemonAbility, PokemonStat } from 'pokenode-ts';
 import classNames from 'classnames';
 import { getPokemon } from './getPokemon';
 import { getTypeClassFromPokemon } from './utils/getTypeClass';
 import { getTypeString } from './utils/getTypeString';
 import { useDebouncedSearch } from './utils/useDebouncedSearch';
+import PokeButton from './components/shared/PokeButton';
 
 function App() {
     const [currentPokemonSearchInputValue, setCurrentPokemonSearchInputValue] =
@@ -109,16 +111,17 @@ function App() {
     return (
         <Container>
             <h1>build the perfect pokemon team</h1>
-            <button onClick={() => setShowTeam(state => !state)}>
+            <hr />
+            <PokeButton onClick={() => setShowTeam(state => !state)}>
                 {showTeam ? 'hide team' : 'show team'}
-            </button>
+            </PokeButton>
             <PokeTeam
                 show={showTeam}
                 team={team}
                 isFull={teamIsFull}
                 onRemove={handleRemovePokemon}
             />
-            <h3>search for a pokemon</h3>
+            <h3>add a pokemon</h3>
             <input
                 value={currentPokemonSearchInputValue}
                 onChange={handleCurrentPokemonSearchInputValueChange}
@@ -135,11 +138,10 @@ function App() {
             {!currentPokemonSearchLoading && !!currentPokemon && (
                 <div>
                     <div
-                        style={{ padding: '0.5rem' }}
                         className={classNames(
-                            'typed-border',
+                            'poke-card',
+                            'typed-border --card',
                             getTypeClassFromPokemon(currentPokemon.types),
-                            'card',
                         )}
                     >
                         <h2>{currentPokemon.name}</h2>
@@ -157,7 +159,7 @@ function App() {
                                 <h5>
                                     {getTypeString(
                                         currentPokemon.types.map(
-                                            t => t.type.name,
+                                            (t: PokemonType) => t.type.name,
                                         ),
                                     )}{' '}
                                     type
@@ -167,12 +169,14 @@ function App() {
                             <Fragment>
                                 <h4>abilities</h4>
                                 <ul>
-                                    {currentPokemon.abilities.map(a => (
-                                        <li key={a.ability.name}>
-                                            {a.ability.name}
-                                            {a.is_hidden ? ' (hidden)' : ''}
-                                        </li>
-                                    ))}
+                                    {currentPokemon.abilities.map(
+                                        (a: PokemonAbility) => (
+                                            <li key={a.ability.name}>
+                                                {a.ability.name}
+                                                {a.is_hidden ? ' (hidden)' : ''}
+                                            </li>
+                                        ),
+                                    )}
                                 </ul>
                             </Fragment>
                         )}
@@ -180,15 +184,17 @@ function App() {
                             <Fragment>
                                 <h4>stats</h4>
                                 <ul>
-                                    {currentPokemon.stats.map(s => (
-                                        <li key={s.stat.name}>
-                                            {s.stat.name}
-                                            <ul>
-                                                <li>base: {s.base_stat}</li>
-                                                <li>effort: {s.effort}</li>
-                                            </ul>
-                                        </li>
-                                    ))}
+                                    {currentPokemon.stats.map(
+                                        (s: PokemonStat) => (
+                                            <li key={s.stat.name}>
+                                                {s.stat.name}
+                                                <ul>
+                                                    <li>base: {s.base_stat}</li>
+                                                    <li>effort: {s.effort}</li>
+                                                </ul>
+                                            </li>
+                                        ),
+                                    )}
                                 </ul>
                             </Fragment>
                         )}

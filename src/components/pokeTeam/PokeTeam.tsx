@@ -1,11 +1,11 @@
 // @ts-ignore
 
 import { Col, Container, Row } from 'react-grid';
-import { FC, Fragment } from 'react';
-
+import { FC } from 'react';
 import { IPokeTeamMember } from '../../types/PokeTeamMember';
 import classNames from 'classnames';
 import { getTypeClass } from '../../utils/getTypeClass';
+import PokeButton from '../shared/PokeButton';
 
 type PokeTeamType = {
     show: boolean;
@@ -15,9 +15,7 @@ type PokeTeamType = {
 };
 
 const PokeTeam: FC<PokeTeamType> = ({ show, team, isFull, onRemove }) => {
-    if (!show) {
-        return null;
-    } else if (!team) {
+    if (!team) {
         return <h4>you haven't created a team yet</h4>;
     } else if (team.length === 0) {
         return <h4>your team has no members</h4>;
@@ -27,7 +25,12 @@ const PokeTeam: FC<PokeTeamType> = ({ show, team, isFull, onRemove }) => {
         ? 'your team is full'
         : 'you can add more pokemon to your team';
     return (
-        <Fragment>
+        <div
+            className={classNames({
+                'poke-team-container': true,
+                '--hidden': !show,
+            })}
+        >
             <h4>{teamText}</h4>
             <Container fluid>
                 <Row className="poke-team">
@@ -38,17 +41,20 @@ const PokeTeam: FC<PokeTeamType> = ({ show, team, isFull, onRemove }) => {
                             key={i}
                             className={classNames(
                                 'poke-team-member-container',
-                                'typed-border team',
+                                'typed-border --team',
                                 getTypeClass(t.types),
                             )}
                         >
                             <p>{t.name}</p>
-                            <button onClick={onRemove(t.order)}>remove</button>
+                            <PokeButton onClick={onRemove(t.order)}>
+                                remove
+                            </PokeButton>
                         </Col>
                     ))}
                 </Row>
             </Container>
-        </Fragment>
+            <hr />
+        </div>
     );
 };
 

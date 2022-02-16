@@ -1,16 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&display=swap');
 @import './_typeColors';
 
 $primary-dark: #1f1b2e;
 $background-dark: #100f17;
+$poke-theme-primary: #3b5ca7;
+$poke-theme-secondary: #ffcb07;
 
 html {
+    font-family: 'Oswald', sans-serif;
     background-color: $background-dark;
     color: white;
 }
 
-.card {
+button {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+}
+
+.text-primary {
+    color: $poke-theme-primary;
+}
+
+.text-secondary {
+    color: $poke-theme-secondary;
+}
+
+.poke-card {
     min-height: 75vh;
     max-height: 75vh;
+    margin: 2rem 0;
+    padding: 1rem 1rem;
 }
 
 .typed-border {
@@ -18,19 +37,47 @@ html {
     border-image-slice: 1;
     background-color: $primary-dark;
 
-    &.team {
+    &.--team {
         border-radius: 10px;
     }
 }
 
-.poke-team {
-    gap: 1rem;
+.poke-team-container {
+    &.--hidden {
+        display: none;
+    }
+    .poke-team {
+        gap: 1rem;
+        margin: 1.5rem 0;
 
-    &-member-container {
-        padding: 0.5rem;
-        text-align: center;
+        &-member-container {
+            padding: 0.5rem;
+            text-align: center;
+        }
+    }
+}
 
-        .-item {
+.poke-button {
+    background-color: $poke-theme-primary;
+    border: 2px solid $poke-theme-secondary;
+    color: $poke-theme-secondary;
+    padding: 0.5rem 1rem;
+    font-size: medium;
+    transition: all ease-out 0.3s;
+    border-radius: 15px;
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 0px 0px 10px 1px $poke-theme-secondary;
+        transition: none;
+    }
+
+    &.--disabled {
+        cursor: not-allowed;
+        filter: brightness(60%);
+
+        &:hover {
+            box-shadow: none;
         }
     }
 }
